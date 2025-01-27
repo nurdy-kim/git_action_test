@@ -38,7 +38,7 @@ For each identified issue, provide the exact file path and line number by referr
 
 client = ollama.Client(host=OLLAMA_API_URL)
 
-review_comments = client.generate(model="deepseek-coder-v2", prompt=prompt)
+review_comments = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"num_ctx": 4096})
 
 # response = requests.post(
 #     OLLAMA_API_URL,
