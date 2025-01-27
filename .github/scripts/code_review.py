@@ -1,7 +1,7 @@
 import os
 import json
+import requests
 from github import Github
-import ollama
 
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')
@@ -33,7 +33,7 @@ For each identified issue, provide the exact file path and line number by referr
 </git diff>
 """
 
-resposne = request.post(
+resposne = requests.post(
     OLLAMA_API_URL,
     json={"model": "deepseek-coder-v2", "prompt": prompt, "stream": False}
 )
