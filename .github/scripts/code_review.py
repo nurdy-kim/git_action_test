@@ -38,17 +38,14 @@ For each identified issue, provide the exact file path and line number by referr
 
 client = ollama.Client(host=OLLAMA_API_URL)
 
-review_comments = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"num_ctx": 4096})
+response = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"num_ctx": 4096})
 
 # response = requests.post(
 #     OLLAMA_API_URL,
 #     json={"model": "deepseek-coder-v2", "prompt": prompt, "stream": False}
 # )
 
-# if response.status_code == 200:
-#     review_comments = response.json().get("response", "No response from Ollama.")
-# else:
-#     review_comments = f"ERROR from Ollama: {response.text}"
+review_comments = response.get("response", "No response from Ollama.")
 
 # 리뷰 결과 저장
 with open("res.txt", "w") as res_file:
