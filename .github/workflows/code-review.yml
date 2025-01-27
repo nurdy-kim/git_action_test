@@ -31,7 +31,7 @@ jobs:
               id: store
               run: |
                 COMMENT=$(sed '/^```/d' diff.txt)
-                echo "comment<<EOF" >> $GITHUB_ENV
+                echo "COMMENT<<EOF" >> $GITHUB_ENV
                 echo "$COMMENT" >> $GITHUB_ENV
                 echo "EOF" >> $GITHUB_ENV
             - name: Add Pull Request Review Comment
