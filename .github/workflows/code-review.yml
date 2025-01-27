@@ -44,5 +44,5 @@ jobs:
                 token: ${{ secrets.GITHUB_TOKEN }}
                 repository: ${{ github.repository }}
                 issue-number: ${{ github.event.pull_request.number }}
-                body-file: .github/scripts/res.txt
+                body-file: res.txt
                 edit-mode: replace

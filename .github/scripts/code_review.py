@@ -39,12 +39,12 @@ response = requests.post(
 )
 
 if response.status_code == 200:
-    review_comments = resposne.json().get("response", "No response from Ollama.")
+    review_comments = response.json().get("response", "No response from Ollama.")
 else:
     review_comments = f"ERROR from Ollama: {response.text}"
 
 # 리뷰 결과 저장
-with open("./res.txt", "w") as res_file:
+with open("res.txt", "w") as res_file:
     res_file.write(review_comments)
 
 print(f"res :{review_comments}")
