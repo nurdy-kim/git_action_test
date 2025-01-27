@@ -36,7 +36,7 @@ For each identified issue, provide the exact file path and line number by referr
 </git diff>
 """
 
-client = ollama.Client(hots=OLLAMA_API_URL)
+client = ollama.Client(host=OLLAMA_API_URL)
 
 review_comments = client.generate(model="deepseek-coder-v2", prompt=prompt)
 
