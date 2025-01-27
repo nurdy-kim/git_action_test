@@ -3,8 +3,7 @@ import json
 import requests
 from github import Github
 import ollama
-
-
+import re
 
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')
