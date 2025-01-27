@@ -29,7 +29,7 @@ jobs:
                   git diff --unified=0 "origin/${{github.event.pull_request.base.ref}}" > "diff.txt"
             - name: Run Script
               env: 
-                OLLAMA_API_URL: ${{ secrets.OLLAMA_API_URL }}
+                OLLAMA_API_URL: ${{ vars.OLLAMA_API_URL }}
               run: python .github/scripts/code_review.py
             - name: output
               id: store
