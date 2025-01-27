@@ -47,7 +47,11 @@ response = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"n
 
 review_comments = response.get("response", "No response from Ollama.")
 
+print("🔍 Original Response from Ollama:")
+print(review_comments)  # 원본 데이터 확인
+
 if review_comments.startswith("```json"):
+    print("!IN!")
     review_comments = review_comments.strip("```json").strip("```")
 
 try:
