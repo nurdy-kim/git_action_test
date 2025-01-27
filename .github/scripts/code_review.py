@@ -20,8 +20,17 @@ with open(diff_file, "r") as file:
     diff_content = file.read()
 
 prompt = f"""
-You are a senior software engineer and need to perform a code review based on the results of a given git diff. Review the changed code from different perspectives and let us know if there are any changes that need to be made. If you see any code that needs to be fixed in the result of the git diff, you need to calculate the exact line number by referring to the “@@ -0,0 +0,0 @@” part. The output format is [{"path":"{{filepath}}", "line": {{line}}, "text": "{{review_comment}}", "side": "RIGHT"}] format must be respected.
-<git diff>{diff_content}</git diff>
+You are a senior software engineer conducting a code review based on the provided git diff. Please analyze the changes from multiple perspectives, including correctness, security, readability, and best practices. Identify any potential improvements or necessary fixes.
+
+For each identified issue, provide the exact file path and line number by referring to the context markers (e.g., @@ -0,0 +0,0 @@) in the diff. Ensure the output is formatted as a structured JSON list:
+
+[
+  {{"path": "<file_path>", "line": <line_number>, "text": "<review_comment>", "side": "RIGHT"}}
+]
+
+<git diff>
+{diff_content}
+</git diff>
 """
 
 resposne = request.post(
