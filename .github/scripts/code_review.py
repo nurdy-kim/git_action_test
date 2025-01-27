@@ -13,7 +13,7 @@ repo = github_client.get_repo(REPO_NAME)
 pr = repo.get_pull(int(PR_NUMBER))
 
 diff_file = "diff.txt"
-if not.os.path.exists(diff_file):
+if not os.path.exists(diff_file):
     print("diff.txt not found.")
     exit(1)
 
