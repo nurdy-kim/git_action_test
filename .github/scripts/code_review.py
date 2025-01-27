@@ -44,7 +44,7 @@ else:
     review_comments = f"ERROR from Ollama: {response.text}"
 
 # 리뷰 결과 저장
-with open("res.txt", "w") as res_file:
+with open("./res.txt", "w") as res_file:
     res_file.write(review_comments)
 
 print("Save Results!")
