@@ -2,6 +2,9 @@ import os
 import json
 import requests
 from github import Github
+import ollama
+
+
 
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')
@@ -33,15 +36,19 @@ For each identified issue, provide the exact file path and line number by referr
 </git diff>
 """
 
-response = requests.post(
-    OLLAMA_API_URL,
-    json={"model": "deepseek-coder-v2", "prompt": prompt, "stream": False}
-)
+client = ollama.Client(hots=OLLAMA_API_URL)
 
-if response.status_code == 200:
-    review_comments = response.json().get("response", "No response from Ollama.")
-else:
-    review_comments = f"ERROR from Ollama: {response.text}"
+review_comments = client.generate(model="deepseek-coder-v2", prompt=prompt)
+
+# response = requests.post(
+#     OLLAMA_API_URL,
+#     json={"model": "deepseek-coder-v2", "prompt": prompt, "stream": False}
+# )
+
+# if response.status_code == 200:
+#     review_comments = response.json().get("response", "No response from Ollama.")
+# else:
+#     review_comments = f"ERROR from Ollama: {response.text}"
 
 # 리뷰 결과 저장
 with open("res.txt", "w") as res_file:
