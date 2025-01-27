@@ -5,9 +5,8 @@ import ollama
 
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')
-PR_NUMBER = os.getenv('GITHUB_EVENT_PULL_REQUEST_NUMBER')
+PR_NUMBER = os.getenv('GITHUB_REF').split("/")[2]
 OLLAMA_API_URL = os.getenv('OLLAMA_API_URL')
-
 github_client = Github(GITHUB_TOKEN)
 repo = github_client.get_repo(REPO_NAME)
 pr = repo.get_pull(int(PR_NUMBER))
