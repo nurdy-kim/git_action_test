@@ -47,6 +47,6 @@ else:
 with open("./res.txt", "w") as res_file:
     res_file.write(review_comments)
 
-print("Save Results!")
+print(f"res :{review_comments}")
 
 
