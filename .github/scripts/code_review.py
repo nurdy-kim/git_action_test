@@ -80,7 +80,7 @@ Format:
 </git diff>
 """
 
-    response = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"num_ctx": 2048})
+    response = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"num_ctx": 4096})
 
     review_comments = response.get("response", "No response from Ollama.")
 
