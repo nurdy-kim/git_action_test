@@ -29,7 +29,7 @@ jobs:
                   git diff --unified=0 "origin/${{github.event.pull_request.base.ref}}" > "diff.txt"
             - name: Run Script
               run: |
-                  python code_review.py
+                  python .github/scripts/code_review.py
             - name: output
               id: store
               run: |
