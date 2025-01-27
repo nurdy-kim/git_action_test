@@ -21,7 +21,7 @@ with open(diff_file, "r") as file:
     diff_content = file.read()
 
 prompt = f"""
-You are a senior software engineer and need to perform a code review based on the results of a given git diff. Review the changed code from different perspectives and let us know if there are any changes that need to be made. If you see any code that needs to be fixed in the result of the git diff, you need to calculate the exact line number by referring to the “@@ -0,0 +0,0 @@” part. The output format is [{"path":"{ filepath }", "line": { line }, "text": { review comment }, "side": "RIGHT"}] format must be respected.
+You are a senior software engineer and need to perform a code review based on the results of a given git diff. Review the changed code from different perspectives and let us know if there are any changes that need to be made. If you see any code that needs to be fixed in the result of the git diff, you need to calculate the exact line number by referring to the “@@ -0,0 +0,0 @@” part. The output format is [{"path":"{{filepath}}", "line": {{line}}, "text": "{{review_comment}}", "side": "RIGHT"}] format must be respected.
 <git diff>{diff_content}</git diff>
 """
 
