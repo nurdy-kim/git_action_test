@@ -47,23 +47,23 @@ response = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"n
 
 review_comments = response.get("response", "No response from Ollama.")
 
-print("🔍 Original Response from Ollama:")
-print(review_comments)  # 원본 데이터 확인
+match = re.search(r"```json\n(.*?)\n```", review_comments, re.DOTALL)
+if match:
+    review_comments = match.group(1).strip()  # ✅ JSON 부분만 추출
 
-if review_comments.startswith("```json"):
-    print("!IN!")
-    review_comments = review_comments.strip("```json").strip("```")
-
+# 🚀 2️⃣ JSON 파싱 시도
 try:
     parsed_comments = json.loads(review_comments)
     print("✅ 정상적인 JSON 파싱 완료")
-except json.JSONDecodeError:
-    print("🚨 JSON 파싱 오류 발생:", review_comments)
+except json.JSONDecodeError as e:
+    print("🚨 JSON 파싱 오류 발생:", e)
+    print("👉 원본 데이터:", review_comments)
+    exit(1)  # JSON 오류 발생 시 종료
 
-# 리뷰 결과 저장
+# 📁 JSON 파일로 저장
 with open("res.txt", "w") as res_file:
-    res_file.write(parsed_comments)
+    res_file.write(json.dumps(parsed_comments, indent=4))  # ✅ JSON 형식으로 저장
 
-print(f"res :{parsed_comments}")
+print(f"res : {parsed_comments}")
 
 
