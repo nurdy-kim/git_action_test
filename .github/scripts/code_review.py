@@ -47,10 +47,19 @@ response = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"n
 
 review_comments = response.get("response", "No response from Ollama.")
 
+if review_comments.startswith("```json"):
+    review_comments = review_comments.strip("```json").strip("```")
+
+try:
+    parsed_comments = json.loads(review_comments)
+    print("✅ 정상적인 JSON 파싱 완료")
+except json.JSONDecodeError:
+    print("🚨 JSON 파싱 오류 발생:", review_comments)
+
 # 리뷰 결과 저장
 with open("res.txt", "w") as res_file:
-    res_file.write(review_comments)
+    res_file.write(parsed_comments)
 
-print(f"res :{review_comments}")
+print(f"res :{parsed_comments}")
 
 
