@@ -34,9 +34,11 @@ jobs:
                 echo "comment=$COMMENT" >> $GITHUB_OUTPUT
                 echo "$COMMENT"
             - name: Add Pull Request Review Comment
-              uses: nbaztec/github-action-pr-review-comment@v1
+              uses: peter-evans/create-or-update-comment@v2
               with:
-                  comment: ${{ steps.store.outputs.comment }}
-                  repo-token: $${{ secrets.GITHUB_TOKEN }}
-                  repo-token-user-login: 'github-actions[bot]'
-                  allow-repeats: false
+                token: ${{ secrets.GITHUB_TOKEN }}
+                repository: ${{ github.repository }}
+                comment: ${{ steps.store.outputs.comment }}
+                issue-number: ${{ github.event.pull_request.number }}
+                body: ${{ steps.store.outputs.comment }}
+                edit-mode: replace
