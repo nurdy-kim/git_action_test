@@ -27,7 +27,7 @@ You are a senior software engineer and need to perform a code review based on th
 
 resposne = request.post(
     OLLAMA_API_URL,
-    json={"model": "deepseek-coder-v2", "prompt" prompt, "stream": False}
+    json={"model": "deepseek-coder-v2", "prompt": prompt, "stream": False}
 )
 
 if response.status_code == 200:
