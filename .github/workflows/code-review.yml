@@ -34,15 +34,13 @@ jobs:
             - name: output
               id: store
               run: |
-                COMMENT=$(sed '/^```/d' diff.txt)
-                echo "COMMENT<<EOF" >> $GITHUB_ENV
-                echo "$COMMENT" >> $GITHUB_ENV
-                echo "EOF" >> $GITHUB_ENV
+                COMMENT=$(sed '/^```/d' res.txt | jq -c .)
+                echo "comment=$COMMENT" >> $GITHUB_OUTPUT
+                echo $((${{ steps.store.outputs.comment }}))
             - name: Add Pull Request Review Comment
-              uses: peter-evans/create-or-update-comment@v2
+              uses: nbaztec/add-pr-review-comment@v1.0.7
               with:
-                token: ${{ secrets.GITHUB_TOKEN }}
-                repository: ${{ github.repository }}
-                issue-number: ${{ github.event.pull_request.number }}
-                body-file: res.txt
-                edit-mode: replace
+                comments: ${{ steps.store.outputs.comment }}
+                repo-token: ${{ secrets.GITHUB_TOKEN }}
+                repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+                allow-repeats: false # This is the default
