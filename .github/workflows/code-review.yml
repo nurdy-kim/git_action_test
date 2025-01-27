@@ -30,15 +30,15 @@ jobs:
             - name: output
               id: store
               run: |
-                COMMENT=$(sed '/^```/d' diff.txt | jq -c .)
-                echo "comment=$COMMENT" >> $GITHUB_OUTPUT
-                echo "$COMMENT"
+                COMMENT=$(sed '/^```/d' diff.txt)
+                echo "comment<<EOF" >> $GITHUB_ENV
+                echo "$COMMENT" >> $GITHUB_ENV
+                echo "EOF" >> $GITHUB_ENV
             - name: Add Pull Request Review Comment
               uses: peter-evans/create-or-update-comment@v2
               with:
                 token: ${{ secrets.GITHUB_TOKEN }}
                 repository: ${{ github.repository }}
-                comment: ${{ steps.store.outputs.comment }}
                 issue-number: ${{ github.event.pull_request.number }}
-                body: ${{ steps.store.outputs.comment }}
+                body: ${{ github.env.comment }}
                 edit-mode: replace
