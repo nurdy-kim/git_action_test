@@ -83,7 +83,7 @@ Format:
     response = client.generate(model="deepseek-coder-v2", prompt=prompt, options={"num_ctx": 4096})
 
     review_comments = response.get("response", "No response from Ollama.")
-    print("res: "review_comments)
+    print("res: ", review_comments)
     # ✅ JSON 부분만 추출
     match = re.search(r"```json\n(.*?)\n```", review_comments, re.DOTALL)
     if match:
