@@ -27,18 +27,20 @@ jobs:
                   git fetch origin "${{github.event.pull_request.base.ref}}"
                   git fetch origin "${{github.event.pull_request.head.ref}}"
                   git diff --unified=0 "origin/${{github.event.pull_request.base.ref}}" > "diff.txt"
+            - name: Run Script
+              env: 
+                OLLAMA_API_URL: ${{ vars.OLLAMA_API_URL }}
+              run: python .github/scripts/code_review.py
             - name: output
               id: store
               run: |
-                COMMENT=$(sed '/^```/d' diff.txt | jq -c .)
+                COMMENT=$(sed '/^```/d' res.txt | jq -c .)
                 echo "comment=$COMMENT" >> $GITHUB_OUTPUT
-                echo "$COMMENT"
+                echo $((${{ steps.store.outputs.comment }}))
             - name: Add Pull Request Review Comment
-              uses: peter-evans/create-or-update-comment@v2
+              uses: nbaztec/add-pr-review-comment@v1.0.7
               with:
-                token: ${{ secrets.GITHUB_TOKEN }}
-                repository: ${{ github.repository }}
-                comment: ${{ steps.store.outputs.comment }}
-                issue-number: ${{ github.event.pull_request.number }}
-                body: ${{ steps.store.outputs.comment }}
-                edit-mode: replace
+                comments: ${{ steps.store.outputs.comment }}
+                repo-token: ${{ secrets.GITHUB_TOKEN }}
+                repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+                allow-repeats: false # This is the default
