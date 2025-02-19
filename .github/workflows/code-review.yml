@@ -18,9 +18,9 @@ jobs:
             DISCORD_EMBEDS: |
               [
                 {
-                  "title": "새로운 PR 이 왔습니다\n ${{github.event.pull_request.title}}"
+                  "title": "새로운 PR 이 왔습니다\n ${{github.event.pull_request.title}}",
                   "color": 10478271,
-                  "description": "${{ github.event.pull_request.url }}",
+                  "description": "${{ github.event.pull_request.html_url }}",
                   "fields": [
                     {
                       "name": "Author",
